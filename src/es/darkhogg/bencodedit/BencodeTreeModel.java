@@ -34,13 +34,14 @@ public final class BencodeTreeModel implements TreeModel {
 	
 	@Override
 	public BencodeTreeNode getChild ( Object parent, int index ) {
-		Value<?> vprt = ((BencodeTreeNode) parent).getValue();
+		Value<?> vprt = ( (BencodeTreeNode) parent ).getValue();
 		
 		if ( vprt instanceof ListValue ) {
-			return new BencodeTreeNode( ((ListValue) vprt ).get( index ), vprt, index );
+			return new BencodeTreeNode( ( (ListValue) vprt ).get( index ), vprt, index );
+			
 		} else if ( vprt instanceof DictionaryValue ) {
 			Iterator<Map.Entry<String,Value<?>>> it = ( (DictionaryValue) vprt ).getValue().entrySet().iterator();
-			for ( int i = 1; i < index; i++ ) {
+			for ( int i = 0; i < index; i++ ) {
 				it.next();
 			}
 			
@@ -53,11 +54,13 @@ public final class BencodeTreeModel implements TreeModel {
 	
 	@Override
 	public int getChildCount ( Object parent ) {
-		Value<?> vprt = ((BencodeTreeNode) parent).getValue();
+		Value<?> vprt = ( (BencodeTreeNode) parent ).getValue();
 		if ( vprt instanceof ListValue ) {
 			return ( (ListValue) vprt ).getSize();
+			
 		} else if ( vprt instanceof DictionaryValue ) {
 			return ( (DictionaryValue) vprt ).getSize();
+			
 		} else {
 			return 0;
 		}
@@ -65,30 +68,30 @@ public final class BencodeTreeModel implements TreeModel {
 	
 	@Override
 	public boolean isLeaf ( Object node ) {
-		Value<?> vnode = ((BencodeTreeNode) node).getValue();
+		Value<?> vnode = ( (BencodeTreeNode) node ).getValue();
 		return ( vnode instanceof IntegerValue ) || ( vnode instanceof StringValue );
 	}
 	
 	@Override
 	public void valueForPathChanged ( TreePath path, Object newValue ) {
-		Value<?> nval = ((BencodeTreeNode) newValue).getValue();
+		Value<?> nval = ( (BencodeTreeNode) newValue ).getValue();
 	}
 	
 	@Override
 	public int getIndexOfChild ( Object parent, Object child ) {
-		Value<?> vprt = ((BencodeTreeNode) parent).getValue();
-		Value<?> vcld = ((BencodeTreeNode) child).getValue();
+		Value<?> vprt = ( (BencodeTreeNode) parent ).getValue();
+		Value<?> vcld = ( (BencodeTreeNode) child ).getValue();
 		
 		if ( vprt instanceof ListValue ) {
 			int i = 0;
-			for ( Iterator<?> it = ((ListValue) vprt).getValue().iterator(); it.hasNext(); i++ ) {
+			for ( Iterator<?> it = ( (ListValue) vprt ).getValue().iterator(); it.hasNext(); i++ ) {
 				if ( it.next() == vcld ) {
 					return i;
 				}
 			}
 		} else if ( vprt instanceof DictionaryValue ) {
 			int i = 0;
-			for ( Iterator<?> it = ((DictionaryValue) vprt).getValue().values().iterator(); it.hasNext(); i++ ) {
+			for ( Iterator<?> it = ( (DictionaryValue) vprt ).getValue().values().iterator(); it.hasNext(); i++ ) {
 				if ( it.next() == vcld ) {
 					return i;
 				}
