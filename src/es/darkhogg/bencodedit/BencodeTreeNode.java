@@ -2,7 +2,6 @@ package es.darkhogg.bencodedit;
 
 import es.darkhogg.torrent.bencode.Value;
 
-
 public final class BencodeTreeNode {
 	
 	private final Value<?> parent;
@@ -16,17 +15,22 @@ public final class BencodeTreeNode {
 		this.parent = parent;
 		this.index = index;
 	}
-
+	
 	public Value<?> getParent () {
 		return parent;
 	}
-
+	
 	public Value<?> getValue () {
 		return value;
 	}
-
+	
 	public Object getIndex () {
 		return index;
 	}
 	
+	@Override
+	public String toString () {
+		return "{" + ( index == null ? "" : parent.getClass().getSimpleName() + "[" + index + "] => " )
+			+ value.getClass().getSimpleName() + "}";
+	}
 }
